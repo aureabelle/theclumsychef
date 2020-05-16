@@ -4,39 +4,43 @@ import { useRouter } from "next/router";
 import Loader from "../../components/common/loader";
 import Layout from "../../components/common/layout";
 
-const Recipe = ({ allRecipesApi }) => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [recipe, setRecipe] = useState({});
+import { recipes } from "../../data/recipes";
 
-  const getAllRecipes = async () => {
-    try {
-      await fetch(allRecipesApi)
-        .then((res) => res.json())
-        .then((data) => {
-          const recipe = data.find((data) => data.url === router.query.url);
+const Recipe = () => {
+  console.log(recipes);
+  // const router = useRouter();
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [recipe, setRecipe] = useState({});
 
-          if (recipe) {
-            setRecipe(recipe);
-          } else {
-            setRecipe({});
-          }
-          setIsLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getAllRecipes = async () => {
+  //   try {
+  //     await fetch(allRecipesApi)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         const recipe = data.find((data) => data.url === router.query.url);
 
-  useEffect(() => {
-    getAllRecipes();
-  }, []);
+  //         if (recipe) {
+  //           setRecipe(recipe);
+  //         } else {
+  //           setRecipe({});
+  //         }
+  //         setIsLoading(false);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getAllRecipes();
+  // }, []);
 
   return (
     <Fragment>
       <Layout>
         <div className="recipe">
-          {!isLoading ? (
+          -recipe-
+          {/* {!isLoading ? (
             <Fragment>
               {Object.keys(recipe).length === 0 &&
               recipe.constructor === Object ? (
@@ -100,7 +104,7 @@ const Recipe = ({ allRecipesApi }) => {
             </Fragment>
           ) : (
             <Loader tipText="Loading recipe ..." />
-          )}
+          )} */}
         </div>
       </Layout>
       <style jsx>{`
@@ -230,18 +234,6 @@ const Recipe = ({ allRecipesApi }) => {
       `}</style>
     </Fragment>
   );
-};
-
-Recipe.getInitialProps = async ({ req }) => {
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-
-  const allRecipesApi = process.browser
-    ? `${protocol}://${window.location.host}/api/recipes`
-    : `${protocol}://${req.headers.host}/api/recipes`;
-
-  return {
-    allRecipesApi,
-  };
 };
 
 export default Recipe;
