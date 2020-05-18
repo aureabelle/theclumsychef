@@ -47,6 +47,8 @@ const Recipe = () => {
                     <p>{recipe.description}</p>
                   </div>
 
+                  <div className="in-content">-ads here-</div>
+
                   <div className="ingredients">
                     <h3>Ingredients</h3>
                     <ul>
@@ -59,6 +61,9 @@ const Recipe = () => {
                       })}
                     </ul>
                   </div>
+
+                  <div className="in-content">-ads here-</div>
+
                   <div className="instructions">
                     <h3>Procedure</h3>
                     <ol>
@@ -70,6 +75,8 @@ const Recipe = () => {
                     </ol>
                   </div>
 
+                  <div className="in-content">-ads here-</div>
+
                   <div className="video">
                     <iframe
                       width="100%"
@@ -79,7 +86,7 @@ const Recipe = () => {
                   </div>
                 </div>
 
-                <div className="misc">-ads here-</div>
+                <div className="misc ">-ads here-</div>
               </div>
             </Fragment>
           ) : (
@@ -106,6 +113,11 @@ const Recipe = () => {
 
         .recipe .recipe-info .misc {
           display: none;
+        }
+
+        .recipe .recipe-info .in-content {
+          margin: 10px 0;
+          margin-bottom: 20px;
         }
 
         .recipe .details,
@@ -200,9 +212,9 @@ const Recipe = () => {
           }
 
           .recipe .recipe-info .misc {
+            background: #efefef;
             display: block;
             width: 30%;
-            background: #efefef;
           }
         }
 
