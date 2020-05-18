@@ -13,7 +13,7 @@ const Navigation = () => {
           </a>
         </Link>
 
-        <div className="menu">
+        {/* <div className="menu">
           <ul>
             <li>
               <Link href="/recipes">
@@ -32,12 +32,12 @@ const Navigation = () => {
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
       <style jsx global>{`
         .navigation {
           align-items: center;
-          background-color: rgba(254, 244, 248, 0.95);
+          // background-color: rgba(254, 244, 248, 0.95);
           bottom: 0;
           display: flex;
           justify-content: space-between;

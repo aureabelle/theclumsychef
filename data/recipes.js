@@ -8,7 +8,7 @@ const recipes = [
 
     video: "https://www.youtube.com/embed/0M9u-NtnU-U",
     name: "Chicken Aroz Caldo with Coconut Milk",
-    alt_name: "Rice Pourridge with Coconut Milk",
+    altName: "Rice Pourridge with Coconut Milk",
     url: "chicken-aroz-caldo-rice-pourridge-with-coconut-milk",
     description: "This is the description",
     cuisine: "filipino",

@@ -39,7 +39,6 @@ const Recipe = () => {
     <Fragment>
       <Layout>
         <div className="recipe">
-          -recipe-
           {/* {!isLoading ? (
             <Fragment>
               {Object.keys(recipe).length === 0 &&

@@ -1,203 +1,147 @@
-import Head from 'next/head'
+import { Fragment, useEffect, useState } from "react";
+import Link from "next/link";
 
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+import { Card } from "antd";
+const { Meta } = Card;
 
-    <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+import { recipes } from "../data/recipes";
 
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
-      </p>
+import Layout from "../components/common/layout";
+import Loader from "../components/common/loader";
 
-      <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+const Home = () => {
+  console.log(recipes);
 
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
+  const [isLoading, setIsLoading] = useState(true);
 
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
+  useEffect(() => {
+    if (recipes.length !== 0) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
 
-        <a
-          href="https://vercel.com/new?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    return () => {
+      setIsLoading(true);
+    };
+  }, []);
 
-    <footer>
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-      </a>
-    </footer>
+  return (
+    <Fragment>
+      <Layout>
+        <div className="home">
+          {!isLoading ? (
+            <Fragment>
+              <h1>Nam Nam's Recipes</h1>
+              <div className="recipes-list">
+                {recipes.map((recipeItem, index) => {
+                  return (
+                    <Link
+                      href={`/recipes/${recipeItem.url}`}
+                      key={`recipe-item-${index}`}
+                    >
+                      <a className="recipe-card">
+                        <Card
+                          hoverable
+                          bordered={false}
+                          cover={
+                            <img
+                              alt={`${recipeItem.name} - ${recipeItem.altName}`}
+                              src={recipeItem.photos["cover"]}
+                            />
+                          }
+                        >
+                          <Meta title={`${recipeItem.name} `} />
+                          <p className="alt-name">{recipeItem.altName}</p>
+                        </Card>
+                      </a>
+                    </Link>
+                  );
+                })}
+              </div>
+            </Fragment>
+          ) : (
+            <Loader tipText="Loading recipes ..." />
+          )}
+        </div>
+      </Layout>
+      <style jsx global>{`
+        .home {
+          margin: 0 auto;
+          max-width: 1400px;
+          padding: 20px;
+        }
 
-    <style jsx>{`
-      .container {
-        min-height: 100vh;
-        padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+        .home h1 {
+          font-family: "Delius Unicase", cursive;
+          text-align: center;
+        }
 
-      main {
-        padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer {
-        width: 100%;
-        height: 100px;
-        border-top: 1px solid #eaeaea;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer img {
-        margin-left: 0.5rem;
-      }
-
-      footer a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .title a {
-        color: #0070f3;
-        text-decoration: none;
-      }
-
-      .title a:hover,
-      .title a:focus,
-      .title a:active {
-        text-decoration: underline;
-      }
-
-      .title {
-        margin: 0;
-        line-height: 1.15;
-        font-size: 4rem;
-      }
-
-      .title,
-      .description {
-        text-align: center;
-      }
-
-      .description {
-        line-height: 1.5;
-        font-size: 1.5rem;
-      }
-
-      code {
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-      }
-
-      .grid {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        max-width: 800px;
-        margin-top: 3rem;
-      }
-
-      .card {
-        margin: 1rem;
-        flex-basis: 45%;
-        padding: 1.5rem;
-        text-align: left;
-        color: inherit;
-        text-decoration: none;
-        border: 1px solid #eaeaea;
-        border-radius: 10px;
-        transition: color 0.15s ease, border-color 0.15s ease;
-      }
-
-      .card:hover,
-      .card:focus,
-      .card:active {
-        color: #0070f3;
-        border-color: #0070f3;
-      }
-
-      .card h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-      }
-
-      .card p {
-        margin: 0;
-        font-size: 1.25rem;
-        line-height: 1.5;
-      }
-
-      @media (max-width: 600px) {
-        .grid {
-          width: 100%;
+        .home .recipes-list {
+          display: flex;
           flex-direction: column;
         }
-      }
-    `}</style>
 
-    <style jsx global>{`
-      html,
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-      }
+        .home .recipes-list .recipe-card {
+          margin-bottom: 20px;
+          width: 100%;
+        }
 
-      * {
-        box-sizing: border-box;
-      }
-    `}</style>
-  </div>
-)
+        .home .recipes-list .recipe-card img {
+          width: 100%;
+        }
 
-export default Home
+        .home .recipes-list .recipe-card .alt-name {
+          margin: 0;
+          margin-top: 5px;
+        }
+
+        @media screen and (min-width: 640px) {
+          .home {
+            min-height: 100vh;
+            padding: 20px 10px;
+          }
+
+          .home h1 {
+            font-size: 34px;
+          }
+
+          .home .recipes-list {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+
+          .home .recipes-list .recipe-card {
+            margin: 0 10px;
+            margin-bottom: 20px;
+            width: 46%;
+          }
+        }
+
+        @media screen and (min-width: 1024px) {
+          .home .recipes-list .recipe-card {
+            margin: 0 10px;
+            margin-bottom: 20px;
+            width: 30%;
+          }
+        }
+
+        @media screen and (min-width: 1200px) {
+          .home h1 {
+            font-size: 45px;
+          }
+
+          .home .recipes-list .recipe-card {
+            flex: 1 0 auto;
+            margin: 0 10px;
+            margin-bottom: 20px;
+            width: 33.3%;
+          }
+        }
+      `}</style>
+    </Fragment>
+  );
+};
+
+export default Home;

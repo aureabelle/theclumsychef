@@ -50,7 +50,7 @@ const Credits = () => {
       <style jsx global>{`
         .credits {
           align-items: center;
-          background-color: #fef4f8;
+          // background-color: #fef4f8;
           display: flex;
           flex-direction: column;
           padding: 20px;
