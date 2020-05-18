@@ -86,7 +86,7 @@ const Recipe = () => {
                   </div>
                 </div>
 
-                <div className="misc ">-ads here-</div>
+                <div className="misc "></div>
               </div>
             </Fragment>
           ) : (
@@ -116,6 +116,7 @@ const Recipe = () => {
         }
 
         .recipe .recipe-info .in-content {
+          display: none;
           margin: 10px 0;
           margin-bottom: 20px;
         }
@@ -161,9 +162,10 @@ const Recipe = () => {
         }
 
         .recipe .instructions ol li {
-          align-items: center;
+          align-items: flex-start;
           border-bottom: 1px dotted #e0e0e0;
           display: flex;
+          justify-content: flex-start;
           padding: 6px;
         }
 
