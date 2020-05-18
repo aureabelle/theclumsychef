@@ -10,8 +10,6 @@ import Layout from "../components/common/layout";
 import Loader from "../components/common/loader";
 
 const Home = () => {
-  console.log(recipes);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

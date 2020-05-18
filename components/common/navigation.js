@@ -37,7 +37,7 @@ const Navigation = () => {
       <style jsx global>{`
         .navigation {
           align-items: center;
-          // background-color: rgba(254, 244, 248, 0.95);
+          background-color: rgba(255, 255, 255, 0.95);
           bottom: 0;
           display: flex;
           justify-content: space-between;

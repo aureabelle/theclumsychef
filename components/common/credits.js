@@ -74,7 +74,8 @@ const Credits = () => {
           font-family: "Delius Unicase", cursive;
           font-size: 14px;
           font-weight: bold;
-          margin-bottom: 0;
+          margin: 0;
+          margin-right: 10px;
         }
 
         .credits .social .item {
@@ -106,7 +107,6 @@ const Credits = () => {
 
           .credits .social .spread {
             font-size: 12px;
-            margin-right: 10px;
           }
 
           .credits .social .item {

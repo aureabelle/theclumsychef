@@ -7,103 +7,84 @@ import Layout from "../../components/common/layout";
 import { recipes } from "../../data/recipes";
 
 const Recipe = () => {
-  console.log(recipes);
-  // const router = useRouter();
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [recipe, setRecipe] = useState({});
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [recipe, setRecipe] = useState({});
 
-  // const getAllRecipes = async () => {
-  //   try {
-  //     await fetch(allRecipesApi)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         const recipe = data.find((data) => data.url === router.query.url);
+  const getAllRecipes = async () => {
+    if (recipes.length !== 0) {
+      const recipe = recipes.find((data) => data.url === router.query.url);
 
-  //         if (recipe) {
-  //           setRecipe(recipe);
-  //         } else {
-  //           setRecipe({});
-  //         }
-  //         setIsLoading(false);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      if (recipe) {
+        setRecipe(recipe);
+      } else {
+        setRecipe({});
+      }
+      setIsLoading(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   getAllRecipes();
-  // }, []);
+  useEffect(() => {
+    getAllRecipes();
+  }, []);
 
   return (
     <Fragment>
       <Layout>
         <div className="recipe">
-          {/* {!isLoading ? (
+          {!isLoading ? (
             <Fragment>
-              {Object.keys(recipe).length === 0 &&
-              recipe.constructor === Object ? (
-                <Fragment>
-                  <div>
-                    <p>Ooops ... this recipe is missing in action.</p>
-                    <p>Try these other recipes:</p>
+              <div
+                className="hero"
+                style={{ backgroundImage: `url(${recipe.photos.cover})` }}
+              />
+
+              <div className="recipe-info">
+                <div className="recipe-details">
+                  <div className="details">
+                    <h1>{recipe.name}</h1>
+                    <h2>{recipe.altName}</h2>
+                    <p>{recipe.description}</p>
                   </div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div
-                    className="hero"
-                    style={{ backgroundImage: `url(${recipe.coverPhoto})` }}
-                  />
 
-                  <div className="recipe-info">
-                    <div className="recipe-details">
-                      <div className="details">
-                        <h1>{recipe.name}</h1>
-                        <h2>{recipe.altName}</h2>
-                        <p>{recipe.description}</p>
-                      </div>
-
-                      <div className="ingredients">
-                        <h3>Ingredients</h3>
-                        <ul>
-                          {recipe.ingredients.map((ingredient, index) => {
-                            return (
-                              <li
-                                key={`ing-${index}`}
-                              >{`${ingredient.quantity} ${ingredient.name}`}</li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                      <div className="instructions">
-                        <h3>Procedure</h3>
-                        <ol>
-                          {recipe.instructions.map((instruction, index) => {
-                            return (
-                              <li key={`inst-${index}`}>{instruction.step}</li>
-                            );
-                          })}
-                        </ol>
-                      </div>
-
-                      <div className="video">
-                        <iframe
-                          width="100%"
-                          height="480"
-                          src={recipe.videoUrl}
-                        ></iframe>
-                      </div>
-                    </div>
-
-                    <div className="misc">-ads here-</div>
+                  <div className="ingredients">
+                    <h3>Ingredients</h3>
+                    <ul>
+                      {recipe.ingredients.map((ingredient, index) => {
+                        return (
+                          <li
+                            key={`ing-${index}`}
+                          >{`${ingredient.quantity} ${ingredient.name}`}</li>
+                        );
+                      })}
+                    </ul>
                   </div>
-                </Fragment>
-              )}
+                  <div className="instructions">
+                    <h3>Procedure</h3>
+                    <ol>
+                      {recipe.procedure.map((instruction, index) => {
+                        return (
+                          <li key={`inst-${index}`}>{instruction.step}</li>
+                        );
+                      })}
+                    </ol>
+                  </div>
+
+                  <div className="video">
+                    <iframe
+                      width="100%"
+                      height="480"
+                      src={recipe.video}
+                    ></iframe>
+                  </div>
+                </div>
+
+                <div className="misc">-ads here-</div>
+              </div>
             </Fragment>
           ) : (
             <Loader tipText="Loading recipe ..." />
-          )} */}
+          )}
         </div>
       </Layout>
       <style jsx>{`
@@ -183,6 +164,10 @@ const Recipe = () => {
         .recipe .ingredients ul li:last-child,
         .recipe .instructions ol li:last-child {
           border-bottom: none;
+        }
+
+        .recipe .video iframe {
+          border: none;
         }
 
         @media screen and (min-width: 640px) {
