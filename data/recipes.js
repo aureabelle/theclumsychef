@@ -55,9 +55,9 @@ const recipes = [
       additionalPhotos: [],
     },
     video: "https://www.youtube.com/embed/2zyMeyY8HCA",
-    name: "Filipino-Style Chicken Curry",
-    altName: "Ginataang Manok",
-    url: "chicken-curry-ginataang-manok",
+    name: " Ginataang Manok",
+    altName: "Filipino-Style Chicken Curry",
+    url: "ginataang-manok-chicken-curry",
     description: "Ginataang Manok description",
     cuisine: "filipino",
     tags: [

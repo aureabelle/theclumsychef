@@ -1,7 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 
-import { Card } from "antd";
+import { Card, Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+
 const { Meta } = Card;
 
 import { recipes } from "../data/recipes";
@@ -11,6 +13,11 @@ import Loader from "../components/common/loader";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [filterName, setFilterName] = useState("");
+
+  const handleFilterName = (event) => {
+    setFilterName(event.target.value);
+  };
 
   useEffect(() => {
     if (recipes.length !== 0) {
@@ -24,15 +31,34 @@ const Home = () => {
     };
   }, []);
 
+  const filteredRecipes = recipes.filter((recipe) => {
+    const name = recipe.name.toLowerCase();
+    const altName = recipe.altName.toLowerCase();
+
+    if (name.includes(filterName.toLowerCase())) {
+      return name.includes(filterName.toLowerCase());
+    } else if (altName.includes(filterName.toLowerCase())) {
+      return altName.includes(filterName.toLowerCase());
+    }
+  });
+
   return (
     <Fragment>
       <Layout>
         <div className="home">
+          <div className="filter">
+            <Input
+              placeholder="Recipe, ingredient"
+              addonAfter={<SearchOutlined />}
+              value={filterName}
+              onChange={handleFilterName}
+              size="large"
+            />
+          </div>
           {!isLoading ? (
             <Fragment>
-              <h1>Nam Nam's Recipes</h1>
               <div className="recipes-list">
-                {recipes.map((recipeItem, index) => {
+                {filteredRecipes.map((recipeItem, index) => {
                   return (
                     <Link
                       href={`/recipes/${recipeItem.url}`}
@@ -68,6 +94,11 @@ const Home = () => {
           margin: 0 auto;
           max-width: 1400px;
           padding: 20px;
+        }
+
+        .home .filter {
+          margin-bottom: 20px;
+          padding: 0 20px;
         }
 
         .home h1 {
