@@ -1,5 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { useRouter } from "next/router";
+import AdSense from "react-adsense";
 
 import Loader from "../../components/common/loader";
 import Layout from "../../components/common/layout";
@@ -47,7 +48,14 @@ const Recipe = () => {
                     <p>{recipe.description}</p>
                   </div>
 
-                  <div className="in-content">-ads here-</div>
+                  <div className="in-content">
+                    <AdSense.Google
+                      client="ca-pub-4041154744236119"
+                      slot="8037807622"
+                      format="auto"
+                      responsive="true"
+                    />
+                  </div>
 
                   <div className="ingredients">
                     <h3>Ingredients</h3>
@@ -62,7 +70,14 @@ const Recipe = () => {
                     </ul>
                   </div>
 
-                  <div className="in-content">-ads here-</div>
+                  <div className="in-content">
+                    <AdSense.Google
+                      client="ca-pub-4041154744236119"
+                      slot="5605077793"
+                      format="auto"
+                      responsive="true"
+                    />
+                  </div>
 
                   <div className="instructions">
                     <h3>Procedure</h3>
@@ -75,7 +90,14 @@ const Recipe = () => {
                     </ol>
                   </div>
 
-                  <div className="in-content">-ads here-</div>
+                  <div className="in-content">
+                    <AdSense.Google
+                      client="ca-pub-4041154744236119"
+                      slot="3486180911"
+                      format="auto"
+                      responsive="true"
+                    />
+                  </div>
 
                   <div className="video">
                     <iframe
@@ -86,7 +108,14 @@ const Recipe = () => {
                   </div>
                 </div>
 
-                <div className="misc "></div>
+                <div className="misc ">
+                  <AdSense.Google
+                    client="ca-pub-4041154744236119"
+                    slot="5013023180"
+                    format="auto"
+                    responsive="true"
+                  />
+                </div>
               </div>
             </Fragment>
           ) : (

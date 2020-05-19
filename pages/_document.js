@@ -20,6 +20,11 @@ export default class DefaultDocument extends Document {
           <Main />
           <NextScript />
         </body>
+
+        <script
+          async
+          src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
       </html>
     );
   }
