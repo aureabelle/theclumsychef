@@ -15,16 +15,15 @@ export default class DefaultDocument extends Document {
             type="image/x-icon"
             href="/public/favicon.ico"
           />
+          <script
+            async
+            src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
-
-        <script
-          async
-          src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        ></script>
       </html>
     );
   }
