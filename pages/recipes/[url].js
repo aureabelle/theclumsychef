@@ -99,13 +99,13 @@ const Recipe = () => {
                     />
                   </div>
 
-                  <div className="video">
+                  {/* <div className="video">
                     <iframe
                       width="100%"
                       height="480"
                       src={recipe.video}
                     ></iframe>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="misc ">
