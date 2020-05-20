@@ -1,21 +1,3 @@
-// const Recipe = require("../../model/Recipe");
-// import connectDb from "../../middleware/database";
-
-// const handler = async (req, res) => {
-//   try {
-//     let r = Recipe.find();
-//     r.sort({ createdAt: -1 });
-
-//     let recipes = await r.exec();
-//     res.json(recipes);
-//   } catch (error) {
-//     console.log(error);
-//     res.json({ error });
-//   }
-// };
-
-// export default connectDb(handler);
-
 // Import Dependencies
 import { parse } from "url";
 import { MongoClient } from "mongodb";
