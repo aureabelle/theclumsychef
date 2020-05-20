@@ -186,9 +186,7 @@ const Home = ({ allRecipeApi }) => {
 Home.getInitialProps = async ({ req }) => {
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
 
-  const allRecipeApi = process.browser
-    ? `${protocol}://${window.location.host}/api/recipes`
-    : `${protocol}://${req.headers.host}/api/recipes`;
+  const allRecipeApi = process.browser ? `/api/recipes` : `/api/recipes`;
 
   return {
     allRecipeApi,
