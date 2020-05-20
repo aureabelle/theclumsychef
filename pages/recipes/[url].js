@@ -1,9 +1,11 @@
 import { useEffect, useState, Fragment } from "react";
 import { useRouter } from "next/router";
-import AdSense from "react-adsense";
 
 import Loader from "../../components/common/loader";
 import Layout from "../../components/common/layout";
+import GoogleAd from "../../components/common/google-ad";
+
+import AdSense from "react-adsense";
 
 import { recipes } from "../../data/recipes";
 
@@ -49,12 +51,7 @@ const Recipe = () => {
                   </div>
 
                   <div className="in-content">
-                    <AdSense.Google
-                      client="ca-pub-4041154744236119"
-                      slot="8037807622"
-                      format="auto"
-                      responsive="true"
-                    />
+                    <GoogleAd slot="8037807622" />
                   </div>
 
                   <div className="ingredients">
@@ -71,12 +68,7 @@ const Recipe = () => {
                   </div>
 
                   <div className="in-content">
-                    <AdSense.Google
-                      client="ca-pub-4041154744236119"
-                      slot="5605077793"
-                      format="auto"
-                      responsive="true"
-                    />
+                    <GoogleAd slot="5605077793" />
                   </div>
 
                   <div className="instructions">
@@ -91,30 +83,20 @@ const Recipe = () => {
                   </div>
 
                   <div className="in-content">
-                    <AdSense.Google
-                      client="ca-pub-4041154744236119"
-                      slot="3486180911"
-                      format="auto"
-                      responsive="true"
-                    />
+                    <GoogleAd slot="3486180911" />
                   </div>
 
-                  {/* <div className="video">
+                  <div className="video">
                     <iframe
                       width="100%"
                       height="480"
                       src={recipe.video}
                     ></iframe>
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className="misc ">
-                  <AdSense.Google
-                    client="ca-pub-4041154744236119"
-                    slot="5013023180"
-                    format="auto"
-                    responsive="true"
-                  />
+                  <GoogleAd slot="5013023180" />
                 </div>
               </div>
             </Fragment>
