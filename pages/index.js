@@ -6,6 +6,8 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
+import { recipes } from "../data/recipes";
+
 import Layout from "../components/common/layout";
 import Loader from "../components/common/loader";
 
@@ -38,10 +40,16 @@ const Home = ({ allRecipeApi }) => {
   };
 
   useEffect(() => {
-    getAllRecipes();
+    // getAllRecipes();
+
+    if (recipes.length !== 0) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
   }, [setRecipeList, setIsLoading]);
 
-  const filteredRecipes = recipeList.filter((recipe) => {
+  const filteredRecipes = recipes.filter((recipe) => {
     const name = recipe.name.toLowerCase();
     const altName = recipe.altName.toLowerCase();
 
