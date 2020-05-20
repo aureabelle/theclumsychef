@@ -25,7 +25,22 @@ const photoSchema = new mongoose.Schema({
   },
 });
 
+const tagSchema = new mongoose.Schema({
+  type: String,
+});
+
 const recipeSchema = new mongoose.Schema({
+  photos: {
+    cover: {
+      type: String,
+      required: true,
+    },
+    additionalPhotos: [photoSchema],
+  },
+  video: {
+    type: String,
+    require: true,
+  },
   name: {
     type: String,
     required: true,
@@ -37,24 +52,16 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ingredients: [ingredientSchema],
-  instructions: [instructionSchema],
   description: {
     type: String,
     required: true,
   },
-  inspiration: {
+  cuisine: {
     type: String,
   },
-  coverPhoto: {
-    type: String,
-    required: true,
-  },
-  videoUrl: {
-    type: String,
-    required: false,
-  },
-  photos: [photoSchema],
+  tags: [tagSchema],
+  ingredients: [ingredientSchema],
+  procedure: [instructionSchema],
 });
 
 module.exports = mongoose.model("Recipe", recipeSchema);

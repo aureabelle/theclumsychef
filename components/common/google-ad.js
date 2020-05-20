@@ -13,12 +13,14 @@ const GoogleAd = ({ slot }) => {
 
   return (
     <Fragment>
-      <ins
-        className="adsbygoogle"
-        data-ad-slot={slot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
+      <div className="ad">
+        <ins
+          className="adsbygoogle"
+          data-ad-slot={slot}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      </div>
     </Fragment>
   );
 };

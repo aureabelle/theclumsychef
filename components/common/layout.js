@@ -1,5 +1,4 @@
 import { Fragment, useEffect } from "react";
-import React from "react";
 import { initGA, logPageView } from "../../utils/analytics";
 
 import Navigation from "./navigation";

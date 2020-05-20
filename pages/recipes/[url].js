@@ -3,27 +3,31 @@ import { useRouter } from "next/router";
 
 import Loader from "../../components/common/loader";
 import Layout from "../../components/common/layout";
+
 import GoogleAd from "../../components/common/google-ad";
 
 import AdSense from "react-adsense";
 
-import { recipes } from "../../data/recipes";
-
-const Recipe = () => {
+const Recipe = ({ allRecipesApi }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [recipe, setRecipe] = useState({});
 
   const getAllRecipes = async () => {
-    if (recipes.length !== 0) {
-      const recipe = recipes.find((data) => data.url === router.query.url);
-
-      if (recipe) {
-        setRecipe(recipe);
-      } else {
-        setRecipe({});
-      }
-      setIsLoading(false);
+    try {
+      await fetch(allRecipesApi)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.length !== 0) {
+            const recipe = data.find((data) => data.url === router.query.url);
+            setRecipe(recipe);
+          } else {
+            setRecipe({});
+          }
+          setIsLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -39,7 +43,7 @@ const Recipe = () => {
             <Fragment>
               <div
                 className="hero"
-                style={{ backgroundImage: `url(${recipe.photos.cover})` }}
+                style={{ backgroundImage: `url(${recipe.photos[0]["cover"]})` }}
               />
 
               <div className="recipe-info">
@@ -243,6 +247,18 @@ const Recipe = () => {
       `}</style>
     </Fragment>
   );
+};
+
+Recipe.getInitialProps = async ({ req }) => {
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+
+  const allRecipesApi = process.browser
+    ? `${protocol}://${window.location.host}/api/recipes`
+    : `${protocol}://${req.headers.host}/api/recipes`;
+
+  return {
+    allRecipesApi,
+  };
 };
 
 export default Recipe;
