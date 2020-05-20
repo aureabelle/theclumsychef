@@ -3,11 +3,10 @@ import { useRouter } from "next/router";
 
 import Loader from "../../components/common/loader";
 import Layout from "../../components/common/layout";
+
 import GoogleAd from "../../components/common/google-ad";
 
 import AdSense from "react-adsense";
-
-import { recipes } from "../../data/recipes";
 
 const Recipe = ({ allRecipesApi }) => {
   const router = useRouter();
