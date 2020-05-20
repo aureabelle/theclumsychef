@@ -6,32 +6,42 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
-import { recipes } from "../data/recipes";
-
 import Layout from "../components/common/layout";
 import Loader from "../components/common/loader";
 
-const Home = () => {
+const Home = ({ allRecipeApi }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [filterName, setFilterName] = useState("");
+  const [recipeList, setRecipeList] = useState([]);
 
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
   };
 
-  useEffect(() => {
-    if (recipes.length !== 0) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
+  const getAllRecipes = async () => {
+    try {
+      await fetch(allRecipeApi)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+
+          if (data.length !== 0) {
+            setRecipeList(data.recipes);
+          } else {
+            setRecipeList([]);
+          }
+          setIsLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    return () => {
-      setIsLoading(true);
-    };
-  }, []);
+  useEffect(() => {
+    getAllRecipes();
+  }, [setRecipeList, setIsLoading]);
 
-  const filteredRecipes = recipes.filter((recipe) => {
+  const filteredRecipes = recipeList.filter((recipe) => {
     const name = recipe.name.toLowerCase();
     const altName = recipe.altName.toLowerCase();
 
@@ -171,6 +181,18 @@ const Home = () => {
       `}</style>
     </Fragment>
   );
+};
+
+Home.getInitialProps = async ({ req }) => {
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+
+  const allRecipeApi = process.browser
+    ? `${protocol}://${window.location.host}/api/recipes`
+    : `${protocol}://${req.headers.host}/api/recipes`;
+
+  return {
+    allRecipeApi,
+  };
 };
 
 export default Home;

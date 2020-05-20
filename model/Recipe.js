@@ -64,4 +64,6 @@ const recipeSchema = new mongoose.Schema({
   procedure: [instructionSchema],
 });
 
-module.exports = mongoose.model("Recipe", recipeSchema);
+// module.exports = mongoose.model("Recipe", recipeSchema);
+
+export default mongoose.models.Recipe || mongoose.model("Recipe", recipeSchema);
