@@ -6,32 +6,40 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
-import { recipes } from "../data/recipes";
-
 import Layout from "../components/common/layout";
 import Loader from "../components/common/loader";
 
-const Home = () => {
+const Home = ({ allRecipesApi }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [filterName, setFilterName] = useState("");
+  const [recipeList, setRecipeList] = useState([]);
 
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
   };
 
-  useEffect(() => {
-    if (recipes.length !== 0) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
+  const getAllRecipes = async () => {
+    try {
+      await fetch(allRecipesApi)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.length !== 0) {
+            setRecipeList(data);
+          } else {
+            setRecipeList([]);
+          }
+          setIsLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    return () => {
-      setIsLoading(true);
-    };
+  useEffect(() => {
+    getAllRecipes();
   }, []);
 
-  const filteredRecipes = recipes.filter((recipe) => {
+  const filteredRecipes = recipeList.filter((recipe) => {
     const name = recipe.name.toLowerCase();
     const altName = recipe.altName.toLowerCase();
 
@@ -71,7 +79,7 @@ const Home = () => {
                           cover={
                             <img
                               alt={`${recipeItem.name} - ${recipeItem.altName}`}
-                              src={recipeItem.photos["cover"]}
+                              src={recipeItem.photos[0]["cover"]}
                             />
                           }
                         >
@@ -171,6 +179,18 @@ const Home = () => {
       `}</style>
     </Fragment>
   );
+};
+
+Home.getInitialProps = async ({ req }) => {
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+
+  const allRecipesApi = process.browser
+    ? `${protocol}://${window.location.host}/api/recipes`
+    : `${protocol}://${req.headers.host}/api/recipes`;
+
+  return {
+    allRecipesApi,
+  };
 };
 
 export default Home;
